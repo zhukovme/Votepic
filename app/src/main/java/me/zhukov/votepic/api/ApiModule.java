@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiModule {
 
-    private static final String BASE_URL = "http://api.giphy.com/v1";
+    private static final String BASE_URL = "http://api.giphy.com/v1/";
 
     public static ApiInterface getApiInterface() {
         return new Retrofit.Builder()
