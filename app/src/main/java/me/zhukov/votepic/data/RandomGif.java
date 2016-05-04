@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author Michael Zhukov
  */
-public class Gif {
+public class RandomGif {
 
     @SerializedName("type")
     private String type;
@@ -77,15 +77,15 @@ public class Gif {
     private String fixedWidthSmallHeight;
 
 
-    public Gif(String type, String id, String url, String imageOriginalUrl, String imageUrl,
-               String imageMp4Url, String imageFrames, String imageWidth, String imageHeight,
-               String fixedHeightDownsampledUrl, String fixedHeightDownsampledWidth,
-               String fixedHeightDownsampledHeight, String fixedWidthDownsampledUrl,
-               String fixedWidthDownsampledWidth, String fixedWidthDownsampledHeight,
-               String fixedHeightSmallUrl, String fixedHeightSmallStillUrl,
-               String fixedHeightSmallWidth, String fixedHeightSmallHeight,
-               String fixedWidthSmallUrl, String fixedWidthSmallStillUrl,
-               String fixedWidthSmallWidth, String fixedWidthSmallHeight) {
+    public RandomGif(String type, String id, String url, String imageOriginalUrl, String imageUrl,
+                     String imageMp4Url, String imageFrames, String imageWidth, String imageHeight,
+                     String fixedHeightDownsampledUrl, String fixedHeightDownsampledWidth,
+                     String fixedHeightDownsampledHeight, String fixedWidthDownsampledUrl,
+                     String fixedWidthDownsampledWidth, String fixedWidthDownsampledHeight,
+                     String fixedHeightSmallUrl, String fixedHeightSmallStillUrl,
+                     String fixedHeightSmallWidth, String fixedHeightSmallHeight,
+                     String fixedWidthSmallUrl, String fixedWidthSmallStillUrl,
+                     String fixedWidthSmallWidth, String fixedWidthSmallHeight) {
 
         this.type = type;
         this.id = id;

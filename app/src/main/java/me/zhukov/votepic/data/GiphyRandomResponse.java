@@ -5,21 +5,21 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author Michael Zhukov
  */
-public class GiphyRandom {
+public class GiphyRandomResponse {
 
     @SerializedName("data")
-    private Gif gif;
+    private RandomGif randomGif;
 
     @SerializedName("meta")
     private Meta meta;
 
-    public GiphyRandom(Gif gif, Meta meta) {
-        this.gif = gif;
+    public GiphyRandomResponse(RandomGif randomGif, Meta meta) {
+        this.randomGif = randomGif;
         this.meta = meta;
     }
 
-    public Gif getGif() {
-        return gif;
+    public RandomGif getRandomGif() {
+        return randomGif;
     }
 
     public Meta getMeta() {
