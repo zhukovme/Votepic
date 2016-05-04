@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author Michael Zhukov
  */
-public class GiphyResponse {
+public class GiphyRandom {
 
     @SerializedName("data")
     private Gif gif;
@@ -13,7 +13,7 @@ public class GiphyResponse {
     @SerializedName("meta")
     private Meta meta;
 
-    public GiphyResponse(Gif gif, Meta meta) {
+    public GiphyRandom(Gif gif, Meta meta) {
         this.gif = gif;
         this.meta = meta;
     }
