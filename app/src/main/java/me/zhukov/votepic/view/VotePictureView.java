@@ -1,12 +1,12 @@
 package me.zhukov.votepic.view;
 
-import pl.droidsonroids.gif.GifImageView;
+import me.zhukov.votepic.ui.view.GifView;
 
 /**
  * @author Michael Zhukov
  */
 public interface VotePictureView extends ViewMvp {
 
-    GifImageView getFirstGif();
-    GifImageView getSecondGif();
+    GifView getFirstGif();
+    GifView getSecondGif();
 }

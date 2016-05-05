@@ -21,17 +21,33 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <pl.droidsonroids.gif.GifImageView
+        <TextView
+            android:id="@+id/tv_id_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_centerHorizontal="true"/>
+
+        <me.zhukov.votepic.ui.view.GifView
             android:id="@+id/giv_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/app_bar"/>
 
-        <pl.droidsonroids.gif.GifImageView
+        <TextView
+            android:id="@+id/tv_id_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_centerHorizontal="true"/>
+
+        <me.zhukov.votepic.ui.view.GifView
             android:id="@+id/giv_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/giv_first"/>
 

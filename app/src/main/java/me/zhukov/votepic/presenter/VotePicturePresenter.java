@@ -1,14 +1,11 @@
 package me.zhukov.votepic.presenter;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
 import me.zhukov.votepic.api.Fetcher;
 import me.zhukov.votepic.model.RandomGif;
 import me.zhukov.votepic.view.VotePictureView;
-import rx.Observable;
 
 /**
  * @author Michael Zhukov
@@ -24,28 +21,14 @@ public class VotePicturePresenter {
         gifQueue = new LinkedList<>();
     }
 
-    public void setup() {
-//        Fetcher
-//                .fetchGiphyRandom(view.getContext())
-//                .repeat(3)
-//                .flatMap(response -> Observable.just(response.getRandomGif()))
-//                .subscribe(RandomGif::getImage,
-//                            throwable -> {
-//                                view.onError("Error");
-//                                throwable.printStackTrace();
-//                            }
-//                });
-    }
-
     public void fetchPicture() {
         Fetcher
-                .fetchGiphyRandom(view.getContext())
-                .flatMap(response -> Observable.just(response.getRandomGif()))
+                .fetchGifOriginal(view.getContext())
                 .subscribe(
-                        randomGif -> Picasso
-                                .with(view.getContext())
-                                .load(randomGif.getImageUrl())
-                                .into(view.getFirstGif()),
-                        throwable -> view.onError("Error"));
+                        gifImage -> view.getFirstGif().setMovie(gifImage.getMovie()),
+                        throwable -> {
+                            view.onError("Error");
+                            throwable.printStackTrace();
+                        });
     }
 }

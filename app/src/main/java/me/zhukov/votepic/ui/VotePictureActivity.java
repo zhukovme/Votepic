@@ -8,15 +8,14 @@ import android.support.v7.widget.Toolbar;
 
 import me.zhukov.votepic.R;
 import me.zhukov.votepic.presenter.VotePicturePresenter;
+import me.zhukov.votepic.ui.view.GifView;
 import me.zhukov.votepic.view.VotePictureView;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class VotePictureActivity extends AppCompatActivity implements VotePictureView {
 
     private Toolbar toolbar;
-    private GifImageView givFirst;
-    private GifImageView givSecond;
+    private GifView givFirst;
+    private GifView givSecond;
 
     private VotePicturePresenter votePicturePresenter;
 
@@ -29,22 +28,24 @@ public class VotePictureActivity extends AppCompatActivity implements VotePictur
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        givFirst = (GifImageView) findViewById(R.id.giv_first);
-        givSecond = (GifImageView) findViewById(R.id.giv_second);
+        givFirst = (GifView) findViewById(R.id.giv_first);
+        givSecond = (GifView) findViewById(R.id.giv_second);
 
         votePicturePresenter = new VotePicturePresenter(this);
-        votePicturePresenter.setup();
 
-        toolbar.setOnClickListener(v -> votePicturePresenter.fetchPicture());
+        toolbar.setOnClickListener(v -> {
+            Snackbar.make(toolbar, "Privet", Snackbar.LENGTH_LONG).show();
+            votePicturePresenter.fetchPicture();
+        });
     }
 
     @Override
-    public GifImageView getFirstGif() {
+    public GifView getFirstGif() {
         return givFirst;
     }
 
     @Override
-    public GifImageView getSecondGif() {
+    public GifView getSecondGif() {
         return givSecond;
     }
 
