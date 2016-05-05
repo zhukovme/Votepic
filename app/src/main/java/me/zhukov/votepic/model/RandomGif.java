@@ -3,6 +3,7 @@ package me.zhukov.votepic.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 import me.zhukov.votepic.api.Fetcher;
 import rx.Observable;
@@ -81,8 +82,6 @@ public class RandomGif {
     @SerializedName("fixed_width_small_height")
     private String fixedWidthSmallHeight;
 
-    private Fetcher fetcher = Fetcher.getInstance();
-
     public RandomGif(String type, String id, String url, String imageOriginalUrl, String imageUrl,
                      String imageMp4Url, String imageFrames, String imageWidth, String imageHeight,
                      String fixedHeightDownsampledUrl, String fixedHeightDownsampledWidth,
@@ -135,7 +134,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getImageOriginal() {
-        return fetcher.fetchGif(imageOriginalUrl);
+        return Fetcher.fetchGif(imageOriginalUrl);
     }
 
     public String getImageUrl() {
@@ -143,7 +142,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getImage() {
-        return fetcher.fetchGif(imageUrl);
+        return Fetcher.fetchGif(imageUrl);
     }
 
     public String getImageMp4Url() {
@@ -151,7 +150,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getImageMp4() {
-        return fetcher.fetchGif(imageMp4Url);
+        return Fetcher.fetchGif(imageMp4Url);
     }
 
     public String getImageFrames() {
@@ -171,7 +170,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedHeightDownsampled() {
-        return fetcher.fetchGif(fixedHeightDownsampledUrl);
+        return Fetcher.fetchGif(fixedHeightDownsampledUrl);
     }
 
     public String getFixedHeightDownsampledWidth() {
@@ -187,7 +186,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedWidthDownsampled() {
-        return fetcher.fetchGif(fixedWidthDownsampledUrl);
+        return Fetcher.fetchGif(fixedWidthDownsampledUrl);
     }
 
     public String getFixedWidthDownsampledWidth() {
@@ -203,7 +202,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedHeightSmall() {
-        return fetcher.fetchGif(fixedHeightSmallUrl);
+        return Fetcher.fetchGif(fixedHeightSmallUrl);
     }
 
     public String getFixedHeightSmallStillUrl() {
@@ -211,7 +210,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedHeightSmallStill() {
-        return fetcher.fetchGif(fixedHeightSmallStillUrl);
+        return Fetcher.fetchGif(fixedHeightSmallStillUrl);
     }
 
     public String getFixedHeightSmallWidth() {
@@ -227,7 +226,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedWidthSmall() {
-        return fetcher.fetchGif(fixedWidthSmallUrl);
+        return Fetcher.fetchGif(fixedWidthSmallUrl);
     }
 
     public String getFixedWidthSmallStillUrl() {
@@ -235,7 +234,7 @@ public class RandomGif {
     }
 
     public Observable<BufferedInputStream> getFixedWidthSmallStill() {
-        return fetcher.fetchGif(fixedWidthSmallStillUrl);
+        return Fetcher.fetchGif(fixedWidthSmallStillUrl);
     }
 
     public String getFixedWidthSmallWidth() {
