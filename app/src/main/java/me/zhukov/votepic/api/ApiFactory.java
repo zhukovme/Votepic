@@ -7,16 +7,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * @author Michael Zhukov
  */
-public class ApiModule {
+public class ApiFactory {
 
     private static final String BASE_URL = "http://api.giphy.com/v1/";
 
-    public static ApiInterface getApiInterface() {
+    public static GifService getGifService() {
+        return getRetrofit().create(GifService.class);
+    }
+
+    public static ApiService getApiService() {
+        return getRetrofit().create(ApiService.class);
+    }
+
+    private static Retrofit getRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build()
-                .create(ApiInterface.class);
+                .build();
     }
 }
