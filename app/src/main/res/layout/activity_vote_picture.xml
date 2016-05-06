@@ -21,35 +21,51 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:id="@+id/tv_id_first"
+        <RelativeLayout
+            android:id="@+id/rl_first"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="200dp"
+            android:layout_below="@id/app_bar">
 
-        <me.zhukov.votepic.ui.view.GifView
-            android:id="@+id/giv_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/app_bar"/>
+            <ProgressBar
+                android:id="@+id/pb_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                style="?android:attr/progressBarStyleLarge"/>
 
-        <TextView
-            android:id="@+id/tv_id_second"
+            <me.zhukov.votepic.ui.view.GifMovieView
+                android:id="@+id/iv_first"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_centerHorizontal="true"
+                android:onClick="onFirstIvClick"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="200dp"
+            android:layout_below="@id/rl_first"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
-        <me.zhukov.votepic.ui.view.GifView
-            android:id="@+id/giv_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/giv_first"/>
+            <ProgressBar
+                android:id="@+id/pb_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                style="?android:attr/progressBarStyleLarge"/>
+
+            <me.zhukov.votepic.ui.view.GifMovieView
+                android:id="@+id/iv_second"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_centerHorizontal="true"
+                android:onClick="onSecondIvClick"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

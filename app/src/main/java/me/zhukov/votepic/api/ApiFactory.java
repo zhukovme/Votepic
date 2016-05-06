@@ -11,10 +11,6 @@ public class ApiFactory {
 
     private static final String BASE_URL = "http://api.giphy.com/v1/";
 
-    public static GifService getGifService() {
-        return getRetrofit().create(GifService.class);
-    }
-
     public static ApiService getApiService() {
         return getRetrofit().create(ApiService.class);
     }

@@ -4,31 +4,41 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import me.zhukov.votepic.api.Fetcher;
-import me.zhukov.votepic.model.RandomGif;
+import me.zhukov.votepic.model.GifMovie;
 import me.zhukov.votepic.view.VotePictureView;
+import rx.Observable;
 
 /**
  * @author Michael Zhukov
  */
 public class VotePicturePresenter {
 
-    private Queue<RandomGif> gifQueue;
-
     private VotePictureView view;
+    private Queue<GifMovie> gifMovieQueue;
 
     public VotePicturePresenter(VotePictureView view) {
         this.view = view;
-        gifQueue = new LinkedList<>();
+        gifMovieQueue = new LinkedList<>();
+        fetchImage();
     }
 
-    public void fetchPicture() {
+    public void fetchImage() {
         Fetcher
-                .fetchGifOriginal(view.getContext())
+                .fetchImage(view.getContext())
+                .repeat(2)
                 .subscribe(
-                        gifImage -> view.getFirstGif().setMovie(gifImage.getMovie()),
+                        gifMovieQueue::offer,
                         throwable -> {
-                            view.onError("Error");
+                            view.onError("Something went wrong");
+                            gifMovieQueue.clear();
                             throwable.printStackTrace();
                         });
+    }
+
+    public GifMovie getImage() {
+        if (gifMovieQueue.size() <= 1) {
+            fetchImage();
+        }
+        return gifMovieQueue.poll();
     }
 }
