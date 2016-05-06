@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import me.zhukov.votepic.R;
+import me.zhukov.votepic.model.GifMovie;
 import me.zhukov.votepic.presenter.VotePicturePresenter;
-import me.zhukov.votepic.ui.view.GifView;
+import me.zhukov.votepic.ui.view.GifMovieView;
 import me.zhukov.votepic.view.VotePictureView;
 
 public class VotePictureActivity extends AppCompatActivity implements VotePictureView {
 
     private Toolbar toolbar;
-    private GifView givFirst;
-    private GifView givSecond;
+    private ProgressBar pbFirst;
+    private ProgressBar pbSecond;
+    private GifMovieView ivFirst;
+    private GifMovieView ivSecond;
 
     private VotePicturePresenter votePicturePresenter;
 
@@ -28,31 +34,42 @@ public class VotePictureActivity extends AppCompatActivity implements VotePictur
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        givFirst = (GifView) findViewById(R.id.giv_first);
-        givSecond = (GifView) findViewById(R.id.giv_second);
+        pbFirst = (ProgressBar) findViewById(R.id.pb_first);
+        pbSecond = (ProgressBar) findViewById(R.id.pb_second);
+
+        ivFirst = (GifMovieView) findViewById(R.id.iv_first);
+        ivSecond = (GifMovieView) findViewById(R.id.iv_second);
 
         votePicturePresenter = new VotePicturePresenter(this);
 
-        toolbar.setOnClickListener(v -> {
-            Snackbar.make(toolbar, "Privet", Snackbar.LENGTH_LONG).show();
-            votePicturePresenter.fetchPicture();
-        });
+        toolbar.setOnClickListener(v -> ivFirst.setMovie(votePicturePresenter.getImage().getMovie()));
+//        setIvFirst();
+//        setIvSecond();
     }
 
-    @Override
-    public GifView getFirstGif() {
-        return givFirst;
+    public void setIvFirst() {
+        GifMovie gifMovie = votePicturePresenter.getImage();
+        ivFirst.setMovie(gifMovie.getMovie());
     }
 
-    @Override
-    public GifView getSecondGif() {
-        return givSecond;
+    public void setIvSecond() {
+        GifMovie gifMovie = votePicturePresenter.getImage();
+        ivSecond.setMovie(gifMovie.getMovie());
+    }
+
+    public void onFirstIvClick(View view) {
+        setIvSecond();
+    }
+
+    public void onSecondIvClick(View view) {
+        setIvFirst();
     }
 
     @Override
     public void onError(String msg) {
         Snackbar
                 .make(toolbar, msg, Snackbar.LENGTH_LONG)
+                .setAction("RETRY", v -> { votePicturePresenter.fetchImage(); })
                 .show();
     }
 
