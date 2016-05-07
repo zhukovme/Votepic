@@ -166,9 +166,6 @@ public class GifMovieView extends View {
         currentAnimationTime = (int) ((now - movieStart) % dur);
     }
 
-    /**
-     * Draw current GIF frame
-     */
     private void drawMovieFrame(Canvas canvas) {
 
         movie.setTime(currentAnimationTime);

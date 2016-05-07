@@ -16,7 +16,7 @@ public interface ApiService {
     @GET
     Observable<ResponseBody> getImage(@Url String url);
 
-    @GET("{type}/random")
+    @GET("v1/{type}/random")
     Observable<GiphyRandomResponse> getGiphyRandom(@Path("type") String type,
                                                    @Query("api_key") String apiKey,
                                                    @Query("tag") String tag);

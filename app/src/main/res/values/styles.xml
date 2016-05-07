@@ -6,6 +6,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Widget.GifView" parent="@android:style/Widget"/>
-
 </resources>

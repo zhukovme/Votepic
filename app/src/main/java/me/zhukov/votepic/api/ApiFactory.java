@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiFactory {
 
-    private static final String BASE_URL = "http://api.giphy.com/v1/";
+    private static final String BASE_URL = "http://api.giphy.com/";
 
     public static ApiService getApiService() {
         return getRetrofit().create(ApiService.class);
