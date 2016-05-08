@@ -21,6 +21,9 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class VotePictureActivity extends AppCompatActivity {
 
+    private static final String GIF_IMAGE_FIRST_STATE = "gif_image_first_state";
+    private static final String GIF_IMAGE_SECOND_STATE = "gif_image_second_state";
+
     private Toolbar toolbar;
     private ProgressBar pbFirst;
     private ProgressBar pbSecond;
@@ -60,18 +63,37 @@ public class VotePictureActivity extends AppCompatActivity {
         ivZoomInFirst = (ImageView) findViewById(R.id.iv_zoom_in_first);
         ivZoomInsSecond = (ImageView) findViewById(R.id.iv_zoom_in_second);
 
-        setGifFirst();
-        setGifSecond();
+        if (savedInstanceState != null) {
+            gifImageFirst = (GifImage) savedInstanceState.getSerializable(GIF_IMAGE_FIRST_STATE);
+            gifImageSecond = (GifImage) savedInstanceState.getSerializable(GIF_IMAGE_SECOND_STATE);
+        }
+
+        if (gifImageFirst != null) {
+            setFirstGif(gifImageFirst);
+        } else {
+            loadFirstGif();
+        }
+
+        if (gifImageSecond != null) {
+            setSecondGif(gifImageSecond);
+        } else {
+            loadSecondGif();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(GIF_IMAGE_FIRST_STATE, gifImageFirst);
+        outState.putSerializable(GIF_IMAGE_SECOND_STATE, gifImageSecond);
     }
 
     public void onFirstGifClick(View view) {
-        onSecondGifLoading();
-        setGifSecond();
+        loadSecondGif();
     }
 
     public void onSecondGifClick(View view) {
-        onFirstGifLoading();
-        setGifFirst();
+        loadFirstGif();
     }
 
     public void onMagnifyPlusFirstClick(View view) {
@@ -89,45 +111,49 @@ public class VotePictureActivity extends AppCompatActivity {
     }
 
     public void onRetryBtnFirstClick(View view) {
-        setGifFirst();
+        loadFirstGif();
     }
 
     public void onRetryBtnSecondClick(View view) {
-        setGifSecond();
+        loadSecondGif();
     }
 
-    private void setGifFirst() {
+    private void loadFirstGif() {
         onFirstGifLoading();
         Repository
                 .getImage(this)
                 .subscribe(
-                        gifImage -> {
-                            tvAboutFirst.setText(gifImage.getId());
-                            givFirst.setImageDrawable(gifImage.getGifDrawable());
-                            gifImageFirst = gifImage;
-                        },
+                        this::setFirstGif,
                         throwable -> {
                             onFirstError();
                             throwable.printStackTrace();
-                        },
-                        this::onFirstGifLoaded);
+                        });
     }
 
-    private void setGifSecond() {
+    private void loadSecondGif() {
         onSecondGifLoading();
         Repository
                 .getImage(this)
                 .subscribe(
-                        gifImage -> {
-                            tvAboutSecond.setText(gifImage.getId());
-                            givSecond.setImageDrawable(gifImage.getGifDrawable());
-                            gifImageSecond = gifImage;
-                        },
+                        this::setSecondGif,
                         throwable -> {
                             onSecondError();
                             throwable.printStackTrace();
-                        },
-                        this::onSecondGifLoaded);
+                        });
+    }
+
+    private void setFirstGif(GifImage gifImage) {
+        givFirst.setImageDrawable(gifImage.getGifDrawable());
+        tvAboutFirst.setText(gifImage.getId());
+        onFirstGifLoaded();
+        gifImageFirst = gifImage;
+    }
+
+    private void setSecondGif(GifImage gifImage) {
+        givSecond.setImageDrawable(gifImage.getGifDrawable());
+        tvAboutSecond.setText(gifImage.getId());
+        onSecondGifLoaded();
+        gifImageSecond = gifImage;
     }
 
     private void onFirstGifLoaded() {
@@ -139,6 +165,7 @@ public class VotePictureActivity extends AppCompatActivity {
     }
 
     private void onFirstGifLoading() {
+        gifImageFirst = null;
         pbFirst.setVisibility(View.VISIBLE);
         givFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.GONE);
@@ -156,6 +183,7 @@ public class VotePictureActivity extends AppCompatActivity {
     }
 
     private void onSecondGifLoading() {
+        gifImageSecond = null;
         pbSecond.setVisibility(View.VISIBLE);
         givSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.GONE);

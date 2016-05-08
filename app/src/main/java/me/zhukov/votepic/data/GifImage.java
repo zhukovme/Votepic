@@ -1,11 +1,13 @@
 package me.zhukov.votepic.data;
 
+import java.io.Serializable;
+
 import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * @author Michael Zhukov
  */
-public class GifImage {
+public class GifImage implements Serializable {
 
     private String id;
     private GifDrawable gifDrawable;
