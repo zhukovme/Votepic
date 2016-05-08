@@ -19,6 +19,9 @@ import me.zhukov.votepic.api.Repository;
 import me.zhukov.votepic.data.GifImage;
 import pl.droidsonroids.gif.GifImageView;
 
+/**
+ * @author Michael Zhukov
+ */
 public class VotePictureActivity extends AppCompatActivity {
 
     private static final String GIF_IMAGE_FIRST_STATE = "gif_image_first_state";

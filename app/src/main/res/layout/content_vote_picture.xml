@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_choose_best_picture"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -20,37 +21,44 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             style="@style/Base.TextAppearance.AppCompat.Large"/>
 
-        <TextView
-            android:id="@+id/tv_about_first"
+        <RelativeLayout
+            android:id="@+id/rl_first_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_votepic_title"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-        <ImageView
-            android:id="@+id/iv_zoom_in_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_magnify_plus_grey600_24dp"
-            android:layout_below="@id/tv_votepic_title"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:onClick="onMagnifyPlusFirstClick"/>
+            <ImageView
+                android:id="@+id/iv_zoom_in_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_magnify_plus_grey600_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_centerVertical="true"
+                android:onClick="onMagnifyPlusFirstClick"/>
+
+            <TextView
+                android:id="@+id/tv_about_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_zoom_in_first"
+                android:layout_toStartOf="@id/iv_zoom_in_first"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_centerVertical="true"
+                style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_first"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_gif_height"
-            android:layout_below="@id/tv_about_first"
-            android:layout_marginTop="@dimen/iv_vertical_margin">
+            android:layout_below="@id/rl_first_title">
 
             <Button
                 android:id="@+id/btn_retry_first"
@@ -71,43 +79,50 @@
                 android:id="@+id/giv_first"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/default_gif_height"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:onClick="onFirstGifClick"/>
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_about_second"
+        <RelativeLayout
+            android:id="@+id/rl_second_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_first"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-        <ImageView
-            android:id="@+id/iv_zoom_in_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_magnify_plus_grey600_24dp"
-            android:layout_below="@id/rl_first"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:onClick="onMagnifyPlusSecondClick"/>
+            <ImageView
+                android:id="@+id/iv_zoom_in_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_magnify_plus_grey600_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_centerVertical="true"
+                android:onClick="onMagnifyPlusSecondClick"/>
+
+            <TextView
+                android:id="@+id/tv_about_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_zoom_in_second"
+                android:layout_toStartOf="@id/iv_zoom_in_second"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_centerVertical="true"
+                style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_second"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_gif_height"
-            android:layout_below="@id/tv_about_second"
-            android:layout_marginTop="@dimen/iv_vertical_margin">
+            android:layout_below="@id/rl_second_title">
 
             <Button
                 android:id="@+id/btn_retry_second"
@@ -128,7 +143,6 @@
                 android:id="@+id/giv_second"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/default_gif_height"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:onClick="onSecondGifClick"/>
