@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Votepic</string>
-    <string name="retry">RETRY</string>
+
+    <string name="retry">Retry</string>
     <string name="tv_choose_best_picture">Vote for the best gif</string>
     <string name="error_msg">Something went wrong</string>
     <string name="action_close_app">Close app</string>

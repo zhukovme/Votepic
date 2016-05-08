@@ -1,0 +1,6 @@
+<resources>
+    <string name="retry">Повторить</string>
+    <string name="tv_choose_best_picture">Проголосуй за лучшую gif</string>
+    <string name="error_msg">Что-то пошло не так</string>
+    <string name="action_close_app">Закрыть приложение</string>
+</resources>
