@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import me.zhukov.votepic.model.GifMovie;
+import me.zhukov.votepic.data.GifImage;
 import rx.Observable;
 
 /**
@@ -13,9 +13,9 @@ import rx.Observable;
  */
 public class Repository {
 
-    private static Queue<GifMovie> gifQueue = new LinkedList<>();
+    private static Queue<GifImage> gifQueue = new LinkedList<>();
 
-    public static Observable<GifMovie> getImage(Context context) {
+    public static Observable<GifImage> getImage(Context context) {
         if (gifQueue.isEmpty()) {
             addToQueue(context);
             return Fetcher.fetchImage(context);

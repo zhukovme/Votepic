@@ -1,4 +1,4 @@
-package me.zhukov.votepic.model;
+package me.zhukov.votepic.data;
 
 import com.google.gson.annotations.SerializedName;
 

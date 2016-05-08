@@ -1,23 +1,23 @@
-package me.zhukov.votepic.model;
+package me.zhukov.votepic.data;
 
-import android.graphics.Movie;
+import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * @author Michael Zhukov
  */
-public class GifMovie {
+public class GifImage {
 
     private String id;
-    private Movie movie;
+    private GifDrawable gifDrawable;
     private int width;
     private int height;
 
-    public GifMovie() {
+    public GifImage() {
     }
 
-    public GifMovie(String id, Movie movie, int width, int height) {
+    public GifImage(String id, GifDrawable gifDrawable, int width, int height) {
         this.id = id;
-        this.movie = movie;
+        this.gifDrawable = gifDrawable;
         this.width = width;
         this.height = height;
     }
@@ -30,12 +30,12 @@ public class GifMovie {
         this.id = id;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public GifDrawable getGifDrawable() {
+        return gifDrawable;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setGifDrawable(GifDrawable gifDrawable) {
+        this.gifDrawable = gifDrawable;
     }
 
     public int getWidth() {

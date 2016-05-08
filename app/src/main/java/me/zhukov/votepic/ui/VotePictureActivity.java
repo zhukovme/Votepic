@@ -1,16 +1,23 @@
 package me.zhukov.votepic.ui;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import me.zhukov.votepic.R;
 import me.zhukov.votepic.api.Repository;
-import me.zhukov.votepic.ui.view.GifMovieView;
+import me.zhukov.votepic.data.GifImage;
+import pl.droidsonroids.gif.GifImageView;
 
 public class VotePictureActivity extends AppCompatActivity {
 
@@ -19,8 +26,15 @@ public class VotePictureActivity extends AppCompatActivity {
     private ProgressBar pbSecond;
     private Button btnRetryFirst;
     private Button btnRetrySecond;
-    private GifMovieView ivFirst;
-    private GifMovieView ivSecond;
+    private GifImageView givFirst;
+    private GifImageView givSecond;
+    private TextView tvAboutFirst;
+    private TextView tvAboutSecond;
+    private ImageView ivZoomInFirst;
+    private ImageView ivZoomInsSecond;
+
+    private GifImage gifImageFirst;
+    private GifImage gifImageSecond;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,98 +51,156 @@ public class VotePictureActivity extends AppCompatActivity {
         btnRetryFirst = (Button) findViewById(R.id.btn_retry_first);
         btnRetrySecond = (Button) findViewById(R.id.btn_retry_second);
 
-        ivFirst = (GifMovieView) findViewById(R.id.iv_first);
-        ivSecond = (GifMovieView) findViewById(R.id.iv_second);
+        givFirst = (GifImageView) findViewById(R.id.giv_first);
+        givSecond = (GifImageView) findViewById(R.id.giv_second);
 
-        setIvFirst();
-        setIvSecond();
+        tvAboutFirst = (TextView) findViewById(R.id.tv_about_first);
+        tvAboutSecond = (TextView) findViewById(R.id.tv_about_second);
+
+        ivZoomInFirst = (ImageView) findViewById(R.id.iv_zoom_in_first);
+        ivZoomInsSecond = (ImageView) findViewById(R.id.iv_zoom_in_second);
+
+        setGifFirst();
+        setGifSecond();
     }
 
-    public void onFirstIvClick(View view) {
-        onSecondIvLoading();
-        setIvSecond();
+    public void onFirstGifClick(View view) {
+        onSecondGifLoading();
+        setGifSecond();
     }
 
-    public void onSecondIvClick(View view) {
-        onFirstIvLoading();
-        setIvFirst();
+    public void onSecondGifClick(View view) {
+        onFirstGifLoading();
+        setGifFirst();
     }
 
-    public void onRetryFirstClick(View view) {
-        setIvFirst();
+    public void onMagnifyPlusFirstClick(View view) {
+        Dialog settingsDialog = new Dialog(this);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        settingsDialog.setContentView();
+        settingsDialog.show();
     }
 
-    public void onRetrySecondClick(View view) {
-        setIvSecond();
+    public void onMagnifyPlusSecondClick(View view) {
+        Dialog settingsDialog = new Dialog(this);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        settingsDialog.setContentView(givSecond);
+        settingsDialog.show();
     }
 
-    private void setIvFirst() {
-        onFirstIvLoading();
+    public void onRetryBtnFirstClick(View view) {
+        setGifFirst();
+    }
+
+    public void onRetryBtnSecondClick(View view) {
+        setGifSecond();
+    }
+
+    private void setGifFirst() {
+        onFirstGifLoading();
         Repository
                 .getImage(this)
                 .subscribe(
-                        gifMovie -> ivFirst.setMovie(gifMovie.getMovie()),
+                        gifImage -> {
+                            tvAboutFirst.setText(gifImage.getId());
+                            givFirst.setImageDrawable(gifImage.getGifDrawable());
+                            gifImageFirst = gifImage;
+                        },
                         throwable -> {
                             onFirstError();
                             throwable.printStackTrace();
                         },
-                        this::onFirstIvLoaded);
+                        this::onFirstGifLoaded);
     }
 
-    private void setIvSecond() {
-        onSecondIvLoading();
+    private void setGifSecond() {
+        onSecondGifLoading();
         Repository
                 .getImage(this)
                 .subscribe(
-                        gifMovie -> ivSecond.setMovie(gifMovie.getMovie()),
+                        gifImage -> {
+                            tvAboutSecond.setText(gifImage.getId());
+                            givSecond.setImageDrawable(gifImage.getGifDrawable());
+                            gifImageSecond = gifImage;
+                        },
                         throwable -> {
                             onSecondError();
                             throwable.printStackTrace();
                         },
-                        this::onSecondIvLoaded);
+                        this::onSecondGifLoaded);
     }
 
-    private void onFirstIvLoaded() {
-        ivFirst.setVisibility(View.VISIBLE);
+    private void onFirstGifLoaded() {
+        givFirst.setVisibility(View.VISIBLE);
+        ivZoomInFirst.setVisibility(View.VISIBLE);
         pbFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.GONE);
+        givSecond.setClickable(true);
     }
 
-    private void onFirstIvLoading() {
-        ivFirst.setVisibility(View.GONE);
+    private void onFirstGifLoading() {
         pbFirst.setVisibility(View.VISIBLE);
+        givFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.GONE);
+        ivZoomInFirst.setVisibility(View.GONE);
+        tvAboutFirst.setText("");
+        givSecond.setClickable(false);
     }
 
-    private void onSecondIvLoaded() {
-        ivSecond.setVisibility(View.VISIBLE);
+    private void onSecondGifLoaded() {
+        givSecond.setVisibility(View.VISIBLE);
+        ivZoomInsSecond.setVisibility(View.VISIBLE);
         pbSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.GONE);
+        givFirst.setClickable(true);
     }
 
-    private void onSecondIvLoading() {
-        ivSecond.setVisibility(View.GONE);
+    private void onSecondGifLoading() {
         pbSecond.setVisibility(View.VISIBLE);
+        givSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.GONE);
+        ivZoomInsSecond.setVisibility(View.GONE);
+        tvAboutSecond.setText("");
+        givFirst.setClickable(false);
     }
 
     private void onFirstError() {
-        ivFirst.setVisibility(View.GONE);
-        pbFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.VISIBLE);
+        givFirst.setVisibility(View.GONE);
+        pbFirst.setVisibility(View.GONE);
+        ivZoomInFirst.setVisibility(View.GONE);
+        tvAboutFirst.setText("");
         showErrorSnackbar();
     }
 
     private void onSecondError() {
-        ivSecond.setVisibility(View.GONE);
-        pbSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.VISIBLE);
+        givSecond.setVisibility(View.GONE);
+        pbSecond.setVisibility(View.GONE);
+        ivZoomInsSecond.setVisibility(View.GONE);
+        tvAboutSecond.setText("");
         showErrorSnackbar();
     }
 
     private void showErrorSnackbar() {
         Snackbar
-                .make(toolbar, "Something went wrong", Snackbar.LENGTH_LONG)
+                .make(toolbar, R.string.error_msg, Snackbar.LENGTH_LONG)
                 .show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.vote_picture, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_close_app:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

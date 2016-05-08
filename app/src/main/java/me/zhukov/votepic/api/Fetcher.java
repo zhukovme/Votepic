@@ -1,11 +1,13 @@
 package me.zhukov.votepic.api;
 
 import android.content.Context;
-import android.graphics.Movie;
+
+import java.io.IOException;
 
 import me.zhukov.votepic.R;
-import me.zhukov.votepic.model.GifMovie;
-import me.zhukov.votepic.model.RandomGif;
+import me.zhukov.votepic.data.GifImage;
+import me.zhukov.votepic.data.RandomGif;
+import pl.droidsonroids.gif.GifDrawable;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -28,15 +30,21 @@ public class Fetcher {
                 });
     }
 
-    public static Observable<GifMovie> fetchImage(Context context) {
+    public static Observable<GifImage> fetchImage(Context context) {
         return fetchGiphyRandom(context)
                 .flatMap(randomGif -> apiService
                         .getImage(randomGif.getUrl())
                         .map(response -> {
                             int width = Integer.parseInt(randomGif.getWidth());
                             int height = Integer.parseInt(randomGif.getHeight());
-                            return new GifMovie(randomGif.getId(),
-                                    Movie.decodeStream(response.byteStream()), width, height);
+                            GifDrawable gifDrawable = null;
+                            try {
+                                byte[] bytesGif = response.bytes();
+                                gifDrawable = new GifDrawable(bytesGif);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return new GifImage(randomGif.getId(), gifDrawable, width, height);
                         }))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

@@ -21,67 +21,11 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_first"
+        <include
+            layout="@layout/content_vote_picture"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/app_bar">
-
-            <Button
-                android:id="@+id/btn_retry_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/retry"
-                android:layout_centerInParent="true"
-                android:onClick="onRetryFirstClick"/>
-
-            <ProgressBar
-                android:id="@+id/pb_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="?android:attr/progressBarStyleLarge"/>
-
-            <me.zhukov.votepic.ui.view.GifMovieView
-                android:id="@+id/iv_first"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:layout_centerHorizontal="true"
-                android:onClick="onFirstIvClick"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/rl_first"
-            android:layout_marginTop="@dimen/activity_vertical_margin">
-
-            <Button
-                android:id="@+id/btn_retry_second"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/retry"
-                android:layout_centerInParent="true"
-                android:onClick="onRetrySecondClick"/>
-
-            <ProgressBar
-                android:id="@+id/pb_second"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="?android:attr/progressBarStyleLarge"/>
-
-            <me.zhukov.votepic.ui.view.GifMovieView
-                android:id="@+id/iv_second"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:layout_centerHorizontal="true"
-                android:onClick="onSecondIvClick"/>
-
-        </RelativeLayout>
+            android:layout_below="@id/app_bar"/>
 
     </RelativeLayout>
 

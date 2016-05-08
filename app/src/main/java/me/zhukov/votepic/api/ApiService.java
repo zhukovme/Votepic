@@ -1,6 +1,6 @@
 package me.zhukov.votepic.api;
 
-import me.zhukov.votepic.model.GiphyRandomResponse;
+import me.zhukov.votepic.data.GiphyRandomResponse;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
