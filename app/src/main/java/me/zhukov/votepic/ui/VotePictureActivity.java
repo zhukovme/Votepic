@@ -1,6 +1,5 @@
 package me.zhukov.votepic.ui;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,9 +21,6 @@ import pl.droidsonroids.gif.GifImageView;
  */
 public class VotePictureActivity extends AppCompatActivity {
 
-    private static final String GIF_IMAGE_FIRST_STATE = "gif_image_first_state";
-    private static final String GIF_IMAGE_SECOND_STATE = "gif_image_second_state";
-
     private Toolbar toolbar;
     private ProgressBar pbFirst;
     private ProgressBar pbSecond;
@@ -36,8 +30,6 @@ public class VotePictureActivity extends AppCompatActivity {
     private GifImageView givSecond;
     private TextView tvAboutFirst;
     private TextView tvAboutSecond;
-    private ImageView ivZoomInFirst;
-    private ImageView ivZoomInsSecond;
 
     private GifImage gifImageFirst;
     private GifImage gifImageSecond;
@@ -63,12 +55,11 @@ public class VotePictureActivity extends AppCompatActivity {
         tvAboutFirst = (TextView) findViewById(R.id.tv_about_first);
         tvAboutSecond = (TextView) findViewById(R.id.tv_about_second);
 
-        ivZoomInFirst = (ImageView) findViewById(R.id.iv_zoom_in_first);
-        ivZoomInsSecond = (ImageView) findViewById(R.id.iv_zoom_in_second);
-
-        if (savedInstanceState != null) {
-            gifImageFirst = (GifImage) savedInstanceState.getSerializable(GIF_IMAGE_FIRST_STATE);
-            gifImageSecond = (GifImage) savedInstanceState.getSerializable(GIF_IMAGE_SECOND_STATE);
+        VotePictureActivity lastActivity = (VotePictureActivity)
+                getLastCustomNonConfigurationInstance();
+        if (lastActivity != null) {
+            gifImageFirst = lastActivity.gifImageFirst;
+            gifImageSecond = lastActivity.gifImageSecond;
         }
 
         if (gifImageFirst != null) {
@@ -85,10 +76,8 @@ public class VotePictureActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(GIF_IMAGE_FIRST_STATE, gifImageFirst);
-        outState.putSerializable(GIF_IMAGE_SECOND_STATE, gifImageSecond);
+    public AppCompatActivity onRetainCustomNonConfigurationInstance() {
+        return this;
     }
 
     public void onFirstGifClick(View view) {
@@ -97,20 +86,6 @@ public class VotePictureActivity extends AppCompatActivity {
 
     public void onSecondGifClick(View view) {
         loadFirstGif();
-    }
-
-    public void onMagnifyPlusFirstClick(View view) {
-        Dialog settingsDialog = new Dialog(this);
-        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-//        settingsDialog.setContentView();
-        settingsDialog.show();
-    }
-
-    public void onMagnifyPlusSecondClick(View view) {
-        Dialog settingsDialog = new Dialog(this);
-        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-//        settingsDialog.setContentView(givSecond);
-        settingsDialog.show();
     }
 
     public void onRetryBtnFirstClick(View view) {
@@ -161,7 +136,6 @@ public class VotePictureActivity extends AppCompatActivity {
 
     private void onFirstGifLoaded() {
         givFirst.setVisibility(View.VISIBLE);
-        ivZoomInFirst.setVisibility(View.VISIBLE);
         pbFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.GONE);
         givSecond.setClickable(true);
@@ -172,14 +146,12 @@ public class VotePictureActivity extends AppCompatActivity {
         pbFirst.setVisibility(View.VISIBLE);
         givFirst.setVisibility(View.GONE);
         btnRetryFirst.setVisibility(View.GONE);
-        ivZoomInFirst.setVisibility(View.GONE);
         tvAboutFirst.setText("");
         givSecond.setClickable(false);
     }
 
     private void onSecondGifLoaded() {
         givSecond.setVisibility(View.VISIBLE);
-        ivZoomInsSecond.setVisibility(View.VISIBLE);
         pbSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.GONE);
         givFirst.setClickable(true);
@@ -190,7 +162,6 @@ public class VotePictureActivity extends AppCompatActivity {
         pbSecond.setVisibility(View.VISIBLE);
         givSecond.setVisibility(View.GONE);
         btnRetrySecond.setVisibility(View.GONE);
-        ivZoomInsSecond.setVisibility(View.GONE);
         tvAboutSecond.setText("");
         givFirst.setClickable(false);
     }
@@ -199,7 +170,6 @@ public class VotePictureActivity extends AppCompatActivity {
         btnRetryFirst.setVisibility(View.VISIBLE);
         givFirst.setVisibility(View.GONE);
         pbFirst.setVisibility(View.GONE);
-        ivZoomInFirst.setVisibility(View.GONE);
         tvAboutFirst.setText("");
         showErrorSnackbar();
     }
@@ -208,7 +178,6 @@ public class VotePictureActivity extends AppCompatActivity {
         btnRetrySecond.setVisibility(View.VISIBLE);
         givSecond.setVisibility(View.GONE);
         pbSecond.setVisibility(View.GONE);
-        ivZoomInsSecond.setVisibility(View.GONE);
         tvAboutSecond.setText("");
         showErrorSnackbar();
     }
